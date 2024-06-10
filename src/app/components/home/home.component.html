@@ -1,0 +1,30 @@
+<div class="container">
+  <p class="text sb m">Filter by keywords</p>
+  <input class="search-input text r m" type="text" [formControl]="keyword" placeholder="The most successful IT companies in 2020">
+  <p class="text sb m" *ngIf="!isLoading" style="margin-top: 40px">Results: {{resultAmount}}</p>
+  <p class="text sb m" *ngIf="isLoading" style="margin-top: 40px">Loading...</p>
+  <hr>
+  <div class="articles">
+    <mat-grid-list cols="3" rowHeight="570px">
+      <mat-grid-tile *ngFor="let article of articles">
+        <div class="article">
+          <img alt="image" class="article-image" src="{{article.image_url}}">
+          <div class="article-description">
+            <div class="article-description-date">
+              <div class="article-description-date-icon"></div>
+              <div class="article-description-date-text text r s">{{article.published_at}}</div>
+            </div>
+            <div class="article-description-title text r l"
+                 [innerHTML]="highlightMatch(article.title)"></div>
+            <div class="article-description-summary text r m"
+                 [innerHTML]="highlightMatch(article.summary)"></div>
+            <div class="article-description-button" (click)="redirectToArticle(article)">
+              <div class="article-description-button-text text b m">Read more</div>
+              <div class="article-description-button-icon"></div>
+            </div>
+          </div>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+</div>
